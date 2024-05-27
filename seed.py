@@ -1,16 +1,14 @@
+# seed.py
 import random
-
 from faker import Faker
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
 from models import Base, Group, Student, Teacher, Subject, Grade
+from db import engine, Session
 
-# Налаштування двигуна та сесії
-engine = create_engine('postgresql+psycopg2://postgres:mysecretpassword@localhost:5432/postgres')
-Session = sessionmaker(bind=engine)
-session = Session()
 faker = Faker()
+
+# Налаштування сесії
+session = Session()
 
 # Створення таблиць
 Base.metadata.create_all(engine)

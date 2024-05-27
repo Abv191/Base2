@@ -1,6 +1,8 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Date
+# models.py
+from sqlalchemy import Column, Integer, String, ForeignKey, Date
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy.orm import relationship
+from db import engine
 
 Base = declarative_base()
 
@@ -38,7 +40,5 @@ class Grade(Base):
     student = relationship("Student")
     subject = relationship("Subject")
 
-# Налаштування двигуна та сесії
-engine = create_engine('postgresql+psycopg2://postgres:mysecretpassword@localhost:5432/postgres')
-Session = sessionmaker(bind=engine)
-session = Session()
+# Створення таблиць
+Base.metadata.create_all(engine)

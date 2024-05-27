@@ -1,9 +1,9 @@
+# my_select.py
 from sqlalchemy import func, desc
-from sqlalchemy.orm import sessionmaker
+from models import Student, Grade, Subject, Group
+from db import Session
 
-from models import engine, Student, Grade, Subject, Group
-
-Session = sessionmaker(bind=engine)
+# Налаштування сесії
 session = Session()
 
 def select_1():
@@ -40,4 +40,4 @@ def select_7(group_id, subject_id):
         Student.name,
         Grade.grade,
         Grade.date
-    ).join(Grade).filter(Student.group_id == group_id, Grade.subject_id == subject)
+    ).join(Grade).filter(Student.group_id == group_id, Grade.subject_id == subject_id).all()
